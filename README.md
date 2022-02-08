@@ -1,16 +1,16 @@
 # discriminated-union
-This package  provides a new approach to complex, composite types for PHP. Here's an example of how easy it is to make an "Option"
+This package  provides a new approach to complex, composite types for PHP. Here's an example of how easy it is to make an "Result"
 type (one of the most beloved ADTs around):
 
-**Make an Option Type**
+**Make a Result Type**
 ```php
-$Option = Union('Option')
+$Result = Union('Result')
             ->of('Success', fn($item)  => item)
             ->of('Error',   fn($error) => $error)
             ->render();
 
-$failureExample = $Option->Error('Nothing worked right!');
-$successExample = $Option->Success('Something went right!');
+$failureExample = $Result->Error('Nothing worked right!');
+$successExample = $Result->Success('Something went right!');
 
 return match($successExample)->with(
   'Success' => fn($successObject) => $successObject,
