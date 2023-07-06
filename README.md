@@ -1,6 +1,7 @@
 # discriminated-union
-This package  provides a new approach to complex, composite types for PHP. Here's an example of how easy it is to make an "Option"
-type (one of the most beloved ADTs around):
+Create an ["algebraic data type"](https://en.wikipedia.org/wiki/Algebraic_data_type) in pure PHP. There are many advantages to using ADT's, but most of them are moot in [weak](https://en.wikipedia.org/wiki/Strong_and_weak_typing#Definitions_of_%22strong%22_or_%22weak%22) languages like PHP. Furthermore, there are **many** composer packages that implement this better than I have here - it is mostly an educational project.
+
+> **NOTE:** PHP 8.0 introduced the `match` keyword, meaning this Package will no longer work on PHP versions above 7.4
 
 **Make an Option Type**
 ```php
@@ -17,7 +18,6 @@ return match($successExample)->with(
   'Error'   => fn($errorObject)   => die()
 )
 ```
-(Do note that currently match is not supported - this README is being created within 2 hours of the project's inception)
 
 # So, what's going on here?
 Algebraic data types are **composite data types**. They are sometimes called "Tagged Unions", "Discriminated Unions", or sometimes
@@ -55,16 +55,5 @@ return match($pet)->with(
   'Error' => fn($meowCount) => "Cat meowed $meowCount times"
 );
 ```
-
-**Caveat Emptor**  
-...This is cool, but it's also PHP we're talking about here. The main benefit of discriminated unions (provable exhaustive matching)
-is completely lost on PHP's type system. But hopefully the few runtime checks that this match function provides at least
-make it safer than "naked" PHP code.
-
-# How does it work?
-The actual "core" of how this works is actually implemented in about 50 lines of code, which is currently all packed into `Union.php`.
-
-The code can explain it better. Basically, your arrow functions act as constructors for this dynamic thunk-constructor tree thing.
-
 # License
 This program can be licensed under the MIT license.
